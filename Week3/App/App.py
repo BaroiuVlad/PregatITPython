@@ -45,13 +45,8 @@ def main():
             elif option == '3':
                 task_id = int(input("Introdu ID-ul task-ului: "))
                 task = manager.get_task_by_id(task_id)
-                print(f"\n--- Detalii Task [{task._id}] ---")
-                print(f"Titlu: {task._title}")
-                print(f"Responsabil: {task._owner}")
-                print(f"Status: {task._status}")
-                print(f"Descriere: {task._description}")
-                print(f"Creat la: {task._created_at}")
-                print(f"Ultima actualizare: {task._updated_at}")
+
+                print(task.format_details())
 
             elif option == '4':
                 task_id = int(input("Introdu ID-ul task-ului pe care vrei sa il modifici: "))

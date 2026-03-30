@@ -165,4 +165,4 @@ class TaskManager:
                              (new_status, time.time(), task_id))
                 conn.commit()
         else:
-            raise InvalidStatusTransitionError(f"Tranzitie invalida din {current_status} in {new_status}.")
+            raise InvalidStatusTransitionError(current_status,new_status)

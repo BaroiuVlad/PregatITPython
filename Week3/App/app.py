@@ -1,9 +1,9 @@
-from Task_system import TaskManager
-from Custom_exceptions import (
+from task_system import TaskManager
+from custom_exceptions import (
     InvalidInputError,
     TaskNotFoundError,
     InvalidStatusTransitionError,
-    EmptyUndoStackError
+    EmptyUndoStackError,
 )
 
 
@@ -23,15 +23,17 @@ def main():
         option = input("Selecteaza o optiune (1-7): ")
 
         try:
-            if option == '1':
+            if option == "1":
                 title = input("Titlu: ")
                 owner = input("Responsabil (Owner): ")
                 desc = input("Descriere: ")
                 manager.create_task(title, owner, desc)
                 print(">> Task creat si salvat cu succes!")
 
-            elif option == '2':
-                sort_by = input("Sorteaza dupa (id, owner, status, updated_at) [apasa Enter pentru id]: ").strip()
+            elif option == "2":
+                sort_by = input(
+                    "Sorteaza dupa (id, owner, status, updated_at) [apasa Enter pentru id]: "
+                ).strip()
                 if not sort_by:
                     sort_by = "id"
 
@@ -42,14 +44,16 @@ def main():
                     for t in tasks:
                         print(t)
 
-            elif option == '3':
+            elif option == "3":
                 task_id = int(input("Introdu ID-ul task-ului: "))
                 task = manager.get_task_by_id(task_id)
 
                 print(task.format_details())
 
-            elif option == '4':
-                task_id = int(input("Introdu ID-ul task-ului pe care vrei sa il modifici: "))
+            elif option == "4":
+                task_id = int(
+                    input("Introdu ID-ul task-ului pe care vrei sa il modifici: ")
+                )
                 title = input("Titlu nou (apasa Enter pentru a sari): ")
                 owner = input("Responsabil nou (apasa Enter pentru a sari): ")
                 desc = input("Descriere noua (apasa Enter pentru a sari): ")
@@ -58,28 +62,27 @@ def main():
                     task_id,
                     title if title else None,
                     owner if owner else None,
-                    desc if desc else None
+                    desc if desc else None,
                 )
                 print(">> Task actualizat cu succes!")
 
-            elif option == '5':
+            elif option == "5":
                 task_id = int(input("Introdu ID-ul task-ului: "))
                 new_status = input("Status nou (ex: IN_PROGRESS, BLOCKED, DONE): ")
 
                 manager.change_status(task_id, new_status)
                 print(">> Status actualizat cu succes!")
 
-            elif option == '6':
+            elif option == "6":
                 manager.undo_last_action()
                 print(">> Ultima actiune a fost anulata cu succes (Undo)!")
 
-            elif option == '7':
+            elif option == "7":
                 print("Se inchide aplicatia. La revedere!")
                 break
 
             else:
                 print("Optiune invalida. Te rog sa alegi un numar intre 1 si 7.")
-
 
         except InvalidInputError as e:
             print(f"[Eroare de Validare] {e}")
